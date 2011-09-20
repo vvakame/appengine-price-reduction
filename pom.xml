@@ -1,10 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>net.vvakame</groupId>
 	<artifactId>appengine-reduce-pricing</artifactId>
-	<packaging>war</packaging>
 	<version>0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
 	<properties>
 		<slim3.version>1.0.13</slim3.version>
 		<appengine.version>1.5.3</appengine.version>
@@ -45,6 +47,7 @@
 			<groupId>org.slim3</groupId>
 			<artifactId>slim3</artifactId>
 			<version>${slim3.version}</version>
+			<scope>test</scope>
 			<exclusions>
 				<exclusion>
 					<groupId>com.google.appengine</groupId>
@@ -60,11 +63,13 @@
 			<groupId>com.google.appengine</groupId>
 			<artifactId>appengine-api-1.0-sdk</artifactId>
 			<version>${appengine.version}</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.appengine</groupId>
 			<artifactId>appengine-api-labs</artifactId>
 			<version>${appengine.version}</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slim3</groupId>
@@ -106,7 +111,6 @@
 
 	<build>
 		<finalName>slim3-maven</finalName>
-		<outputDirectory>${generated.war}/WEB-INF/classes</outputDirectory>
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -174,20 +178,6 @@
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>copy-dependencies-for-webapp</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${generated.war}/WEB-INF/lib</outputDirectory>
-							<includeScope>runtime</includeScope>
-							<overWriteReleases>false</overWriteReleases>
-							<overWriteSnapshots>true</overWriteSnapshots>
-							<overWriteIfNewer>true</overWriteIfNewer>
-						</configuration>
-					</execution>
-					<execution>
 						<id>copy-dependencies-for-apt</id>
 						<phase>generate-sources</phase>
 						<goals>
@@ -209,28 +199,18 @@
 				<configuration>
 					<filesets>
 						<fileset>
-							<directory>${generated.war}/WEB-INF/lib</directory>
-							<includes>
-								<include>**/*.jar</include>
-							</includes>
-						</fileset>
-						<fileset>
 							<directory>${generated.src}</directory>
 							<includes>
 								<include>**/*.*</include>
 							</includes>
 						</fileset>
-						<!-- <fileset> <directory>${eclipse.lib}</directory> <includes> <include>slim3-gen-*.jar</include> 
-							</includes> </fileset> -->
+						<fileset>
+							<directory>${eclipse.lib}</directory>
+							<includes>
+								<include>slim3-gen-*.jar</include>
+							</includes>
+						</fileset>
 					</filesets>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<configuration>
-					<webXml>war/WEB-INF/web.xml</webXml>
-					<warSourceExcludes>.gwt-tmp/**</warSourceExcludes>
 				</configuration>
 			</plugin>
 			<plugin>
