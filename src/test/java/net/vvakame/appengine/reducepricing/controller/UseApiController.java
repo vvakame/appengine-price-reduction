@@ -1,13 +1,14 @@
 package net.vvakame.appengine.reducepricing.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
 import org.slim3.datastore.Datastore;
 
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Transaction;
 
 /**
@@ -16,41 +17,36 @@ import com.google.appengine.api.datastore.Transaction;
  */
 public class UseApiController extends Controller {
 
-	final TestModelMeta META = TestModelMeta.get();
-
-
 	@Override
 	protected Navigation run() throws Exception {
 
-		TestModel model = new TestModel();
-		Datastore.put(model);
-		Datastore.get(model.getKey());
+		Entity entity = new Entity("Test");
 
-		Datastore.allocateId(META);
+		Datastore.put(entity);
+		Datastore.get(entity.getKey());
+
+		Datastore.allocateId("Test");
 
 		Transaction tx = Datastore.beginTransaction();
 		tx.commit();
 
-		Datastore.delete(model.getKey());
+		Datastore.delete(entity.getKey());
 
-		Datastore.getAsMap(model.getKey());
+		Datastore.getAsMap(entity.getKey());
 
-		Datastore.query(META)
-			.filter(META.longValue.equal(1L), META.dateValue.lessThanOrEqual(new Date())).asList();
+		Datastore.query("entity").filter("test", FilterOperator.EQUAL, 1L).asList();
 
-		List<TestModel> list = new ArrayList<TestModel>();
+		List<Entity> list = new ArrayList<Entity>();
 		for (int i = 0; i <= 100; i++) {
-			list.add(new TestModel());
+			list.add(new Entity("Test"));
 		}
 		Datastore.put(list);
 
-		Datastore.query(META).limit(1).asSingle();
+		Datastore.query("Test").limit(10).asList();
 
-		Datastore.query(META).limit(10).asList();
+		Datastore.query("Test").limit(10).asKeyList();
 
-		Datastore.query(META).limit(10).asKeyList();
-
-		Datastore.query(META).count();
+		Datastore.query("Test").count();
 
 		return null;
 	}
