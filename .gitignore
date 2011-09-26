@@ -3,6 +3,7 @@ bin/**
 build/**
 .apt_generated/**
 war/.idea/
+www-test/
 war/WEB-INF/appengine-generated/**
 war/WEB-INF/classes/
 war/WEB-INF/lib/appengine-*.jar
