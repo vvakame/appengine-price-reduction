@@ -65,6 +65,9 @@ public abstract class ApiCountFilter implements Filter {
 				if (delegate != null) {
 					delegate.uninstall();
 				}
+				if (!checkDoSave(request, response)) {
+					return;
+				}
 				try {
 					Entity entity = delegate.entity;
 					ApiCountService.addApiName(entity, getApiName(request));
