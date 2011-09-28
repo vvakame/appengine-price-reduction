@@ -32,12 +32,12 @@ class ApiCountService {
 	}
 
 	public static void countUp(Entity entity, String service, String method, byte[] data) {
-		String propertyName = service + "#" + method;
 
 		if ("datastore_v3".equals(service)) {
 			analysisDatastore_v3(entity, method, data);
 		}
 
+		String propertyName = service + "#" + method;
 		if (entity.hasProperty(propertyName)) {
 			long count = (Long) entity.getProperty(propertyName);
 			count++;

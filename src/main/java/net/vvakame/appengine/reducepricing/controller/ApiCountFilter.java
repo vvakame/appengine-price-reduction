@@ -33,6 +33,15 @@ public abstract class ApiCountFilter implements Filter {
 	 */
 	public abstract String getApiName(HttpServletRequest request);
 
+	/**
+	 * ログを保存するか否かチェックするメソッド.
+	 * @param request
+	 * @param response
+	 * @return 保存をするかしないか
+	 * @author vvakame
+	 */
+	public abstract boolean checkDoSave(HttpServletRequest request, HttpServletResponse response);
+
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
