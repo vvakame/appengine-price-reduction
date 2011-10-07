@@ -15,6 +15,35 @@
 		<eclipse.lib>eclipse.lib</eclipse.lib>
 	</properties>
 
+
+	<distributionManagement>
+		<repository>
+			<id>repo</id>
+			<url>http://vvakame.github.com/appengine-price-reduction/release</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshot-repo</id>
+			<url>http://vvakame.github.com/appengine-price-reduction/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id>vvakame</id>
+			<name>wakame masahiro</name>
+			<email></email>
+			<url>http://d.hatena.ne.jp/vvakame/</url>
+			<timezone>+9</timezone>
+		</developer>
+	</developers>
+
 	<repositories>
 		<repository>
 			<id>maven.seasar.org</id>

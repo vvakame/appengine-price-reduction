@@ -21,14 +21,14 @@ class ApiCountService {
 
 	public static Entity createEntity() {
 		Entity entity = new Entity(KIND);
-		entity.setProperty("api", "unknown");
-		entity.setProperty("at", new Date());
+		entity.setUnindexedProperty("api", "unknown");
+		entity.setUnindexedProperty("at", new Date());
 
 		return entity;
 	}
 
 	public static void addApiName(Entity entity, String apiName) {
-		entity.setProperty("api", apiName);
+		entity.setUnindexedProperty("api", apiName);
 	}
 
 	public static void countUp(Entity entity, String service, String method, byte[] data) {
@@ -41,9 +41,9 @@ class ApiCountService {
 		if (entity.hasProperty(propertyName)) {
 			long count = (Long) entity.getProperty(propertyName);
 			count++;
-			entity.setProperty(propertyName, count);
+			entity.setUnindexedProperty(propertyName, count);
 		} else {
-			entity.setProperty(propertyName, 1L);
+			entity.setUnindexedProperty(propertyName, 1L);
 		}
 	}
 
